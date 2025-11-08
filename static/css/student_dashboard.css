@@ -1,0 +1,121 @@
+/* static/css/student_dashboard.css */
+.student-navbar {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+}
+
+.stat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card.applied-drives {
+    border-left: 4px solid #3498db;
+}
+
+.stat-card.shortlisted {
+    border-left: 4px solid #f39c12;
+}
+
+.stat-card.interviews {
+    border-left: 4px solid #9b59b6;
+}
+
+.stat-card.offers {
+    border-left: 4px solid #27ae60;
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-right: 15px;
+    opacity: 0.8;
+}
+
+.stat-card.applied-drives .stat-icon { color: #3498db; }
+.stat-card.shortlisted .stat-icon { color: #f39c12; }
+.stat-card.interviews .stat-icon { color: #9b59b6; }
+.stat-card.offers .stat-icon { color: #27ae60; }
+
+.drive-card {
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    transition: all 0.3s ease;
+}
+
+.drive-card:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.drive-card.applied {
+    border-left: 4px solid #27ae60;
+    background-color: #f8fff8;
+}
+
+.drive-card.eligible:not(.applied) {
+    border-left: 4px solid #3498db;
+}
+
+.drive-card.not-eligible {
+    border-left: 4px solid #e74c3c;
+    background-color: #fff8f8;
+    opacity: 0.7;
+}
+
+.drive-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.status-timeline .status-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.status-badge {
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.status-applied { background: #e3f2fd; color: #1976d2; }
+.status-shortlisted { background: #fff8e1; color: #f57c00; }
+.status-interview { background: #e8f5e8; color: #388e3c; }
+.status-selected { background: #e8f5e8; color: #2e7d32; }
+.status-rejected { background: #ffebee; color: #d32f2f; }
+
+.notification-item {
+    display: flex;
+    align-items: start;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-item.important {
+    background: #fff8e1;
+    margin: -5px;
+    padding: 10px 5px;
+    border-radius: 5px;
+}
+
+.notification-icon {
+    margin-right: 10px;
+    color: #3498db;
+}
+
+.notification-item.important .notification-icon {
+    color: #f39c12;
+}

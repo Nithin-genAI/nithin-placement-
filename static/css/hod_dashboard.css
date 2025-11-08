@@ -1,0 +1,65 @@
+/* static/css/hod_dashboard.css */
+.hod-navbar {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+}
+
+.stat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card.dept-students {
+    border-left: 4px solid #3498db;
+}
+
+.stat-card.dept-applications {
+    border-left: 4px solid #e74c3c;
+}
+
+.stat-card.approval-rate {
+    border-left: 4px solid #f39c12;
+}
+
+.stat-card.pending-students {
+    border-left: 4px solid #9b59b6;
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-right: 15px;
+    opacity: 0.8;
+}
+
+.stat-card.dept-students .stat-icon { color: #3498db; }
+.stat-card.dept-applications .stat-icon { color: #e74c3c; }
+.stat-card.approval-rate .stat-icon { color: #f39c12; }
+.stat-card.pending-students .stat-icon { color: #9b59b6; }
+
+.placement-stats .stat-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.notification-item:last-child {
+    border-bottom: none;
+}
+
+.approve-btn, .view-btn {
+    margin: 0 2px;
+}

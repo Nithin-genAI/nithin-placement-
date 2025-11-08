@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Alumni Portal - Nithin College</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/d8acde37bb.js" crossorigin="anonymous"></script>
+
+    <!-- Excel Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.0/xlsx.full.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+        }
+
+        .alumni-testimonials {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 80px auto 40px;
+            max-width: 1200px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .section2container {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 40px auto;
+            max-width: 1200px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-slide {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 10px;
+            border-left: 5px solid #3498db;
+        }
+
+        .carousel-control-prev, .carousel-control-next {
+            width: 5%;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-light {
+            border-radius: 25px;
+            padding: 10px 25px;
+            margin: 0 5px;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+        }
+
+        .modal-header {
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        footer {
+            background: rgba(44, 62, 80, 0.95);
+            margin-top: 50px;
+        }
+
+        #excel-table {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        #excel-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #excel-table th, #excel-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #excel-table th {
+            background-color: #f8f9fa;
+            position: sticky;
+            top: 0;
+        }
+
+        .table-responsive {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-graduation-cap me-2"></i>Nithin College Alumni
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link active" href="#" onclick="showHome()">
+                    <i class="fas fa-home me-1"></i>Home
+                </a>
+                <button type="button" class="btn btn-light ms-2" data-bs-toggle="modal" data-bs-target="#registerModal">
+                    <i class="fas fa-user-plus me-1"></i>Register as Alumni
+                </button>
+                <button type="button" class="btn btn-light ms-2" data-bs-toggle="modal" data-bs-target="#loginModal">
+                    <i class="fas fa-sign-in-alt me-1"></i>Alumni Login
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Alert Messages -->
+    <div class="container mt-5 pt-5">
+        {% if status_teacher or status_student %}
+        <div class="alert alert-info alert-dismissible fade show text-center" role="alert">
+            {{ status_teacher }}{{ status_student }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Alumni Testimonials Section -->
+    <section class="alumni-testimonials">
+        <h2 class="text-center mb-4">What Our Alumni Say</h2>
+        <hr class="mb-5">
+        <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="testimonial-slide">
+                                    <blockquote class="blockquote">
+                                        <p class="mb-0">"The Nithin College alumni network has been invaluable in my career development and professional growth."</p>
+                                        <footer class="blockquote-footer mt-2">Jayant - Software Engineer</footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="testimonial-slide">
+                                    <blockquote class="blockquote">
+                                        <p class="mb-0">"The connections I've made through alumni events have opened incredible opportunities for collaboration."</p>
+                                        <footer class="blockquote-footer mt-2">Anupam - Data Scientist</footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="testimonial-slide">
+                                    <blockquote class="blockquote">
+                                        <p class="mb-0">"Mentoring current students gives me immense satisfaction and helps me stay connected with my alma mater."</p>
+                                        <footer class="blockquote-footer mt-2">Shreyash - Product Manager</footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="testimonial-slide">
+                                    <blockquote class="blockquote">
+                                        <p class="mb-0">"The alumni community has been a fantastic support system throughout my entrepreneurial journey."</p>
+                                        <footer class="blockquote-footer mt-2">Omkar - Startup Founder</footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="testimonial-slide">
+                                    <blockquote class="blockquote">
+                                        <p class="mb-0">"I appreciate the lifelong learning opportunities and professional development resources provided."</p>
+                                        <footer class="blockquote-footer mt-2">Pratik - Cloud Architect</footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="testimonial-slide">
+                                    <blockquote class="blockquote">
+                                        <p class="mb-0">"Being part of this network has enriched both my personal and professional life beyond measure."</p>
+                                        <footer class="blockquote-footer mt-2">Aniket - Cybersecurity Expert</footer>
+                                    </blockquote>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Alumni Directory Section -->
+    <section class="section2container">
+        <div class="container">
+            <h1 class="text-center mb-4">
+                <i class="fas fa-handshake me-2"></i>Connect with Nithin College Alumni
+            </h1>
+            <div class="card">
+                <div class="card-body">
+                    <div id="excel-table" class="table-responsive">
+                        <p class="text-center text-muted">Loading alumni directory...</p>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-4">
+                <button class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#connectModal">
+                    <i class="fas fa-envelope me-2"></i>Connect with Alumni
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alumni Registration Modal -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="registerModalLabel">
+                        <i class="fas fa-user-plus me-2"></i>Register as Nithin College Alumni
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted mb-4">Join our prestigious alumni network and stay connected with your alma mater.</p>
+                    <form method="post" action="/alumnu_registration">
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <input type="text" class="form-control" id="name" name="al_name" placeholder="Enter your full name" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="email" name="al_email" placeholder="your.email@example.com" required />
+                            <div class="form-text">We'll never share your email with anyone else.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <input type="password" class="form-control" id="password" name="al_pass" placeholder="Create a secure password" required />
+                                <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                                    Show
+                                </button>
+                            </div>
+                            <div class="form-text">Password must be at least 8 characters long.</div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="graduationYear" class="form-label">Graduation Year</label>
+                            <input type="number" class="form-control" id="graduationYear" name="al_g_year" placeholder="e.g., 2020" min="2000" max="2030" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-user-check me-2"></i>Register as Alumni
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Alumni Login Modal -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="loginModalLabel">
+                        <i class="fas fa-sign-in-alt me-2"></i>Alumni Login
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/alumni_login" method="post">
+                        <div class="mb-3">
+                            <label for="loginEmail" class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="loginEmail" name="al_mail" placeholder="Enter your registered email" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="loginPassword" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="loginPassword" name="al_password" placeholder="Enter your password" required />
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 mb-2">
+                            <i class="fas fa-sign-in-alt me-2"></i>Login to Alumni Portal
+                        </button>
+                        <button type="button" class="btn btn-outline-danger w-100">
+                            <i class="fas fa-key me-2"></i>Forgot Password?
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Connect with Alumni Modal -->
+    <div class="modal fade" id="connectModal" tabindex="-1" aria-labelledby="connectModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="connectModalLabel">
+                        <i class="fas fa-envelope me-2"></i>Connect with Alumni
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form action="/email_alumni" method="post" enctype="multipart/form-data">
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="studentName" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="studentName" name="stu_name" placeholder="Enter your full name" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="studentEmail" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" id="studentEmail" name="stu_email" placeholder="your.email@nithincollege.edu" required />
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Your Message to Alumni</label>
+                            <textarea class="form-control" id="message" rows="4" name="stu_msg" placeholder="Introduce yourself and explain why you'd like to connect..." required></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="resume" class="form-label">Upload Your Resume/CV (Optional)</label>
+                            <input type="file" class="form-control" id="resume" accept=".pdf,.doc,.docx" name="resume" />
+                            <div class="form-text">Supported formats: PDF, DOC, DOCX (Max: 5MB)</div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary w-100">
+                            <i class="fas fa-paper-plane me-2"></i>Send Connection Request
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Nithin College Alumni</h5>
+                    <p>Connecting generations of excellence</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <a href="/" class="text-white me-3">Home</a>
+                    <a href="/alumni" class="text-white me-3">Alumni</a>
+                    <a href="/contact" class="text-white">Contact</a>
+                </div>
+                <div class="col-md-4">
+                    <h5>Alumni Support</h5>
+                    <p>Email: alumni@nithincollege.edu</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <small>&copy; 2024 Nithin College Alumni Association. All rights reserved.</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Navigation Functions
+        function showHome() {
+            window.location.href = "/";
+        }
+
+        // Password Toggle
+        document.getElementById('togglePassword')?.addEventListener('click', function() {
+            const passwordInput = document.getElementById('password');
+            const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+            passwordInput.setAttribute('type', type);
+            this.textContent = type === 'password' ? 'Show' : 'Hide';
+        });
+
+        // Display Excel Content
+        async function displayExcelContent() {
+            try {
+                const response = await fetch("/static/alumni_avail_data.xlsx");
+                if (!response.ok) {
+                    throw new Error('Alumni data file not found');
+                }
+                const arrayBuffer = await response.arrayBuffer();
+                const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                const tableHTML = XLSX.utils.sheet_to_html(sheet);
+                document.getElementById('excel-table').innerHTML = tableHTML;
+
+                // Add basic styling to the table
+                const table = document.querySelector('#excel-table table');
+                if (table) {
+                    table.className = 'table table-striped table-bordered table-hover';
+                }
+            } catch (error) {
+                console.error('Error loading alumni data:', error);
+                document.getElementById('excel-table').innerHTML = 
+                    '<div class="alert alert-warning text-center">Alumni directory will be available once alumni register and mark themselves as available for connections.</div>';
+            }
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Nithin College Alumni Portal loaded');
+            displayExcelContent();
+            
+            // Auto-hide alerts after 5 seconds
+            setTimeout(() => {
+                const alerts = document.querySelectorAll('.alert');
+                alerts.forEach(alert => {
+                    alert.style.display = 'none';
+                });
+            }, 5000);
+        });
+
+        // Send selected data (simplified version)
+        async function sendSelectedData() {
+            alert('Please select an alumni from the directory above to connect with them.');
+        }
+    </script>
+</body>
+</html>

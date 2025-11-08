@@ -1,0 +1,488 @@
+/* alumni.css - Nithin College Placement Portal Alumni Styles */
+
+:root {
+    --primary-blue: #1e40af;
+    --secondary-blue: #3b82f6;
+    --accent-orange: #f59e0b;
+    --success-green: #10b981;
+    --danger-red: #ef4444;
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --background-light: #f8fafc;
+    --white: #ffffff;
+    --gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --gradient-blue: linear-gradient(45deg, #1e40af, #3b82f6);
+    --gradient-orange: linear-gradient(45deg, #f59e0b, #f97316);
+}
+
+/* ===== NAVBAR STYLES ===== */
+.navbar {
+    background: var(--gradient-blue) !important;
+    backdrop-filter: blur(10px);
+    padding: 1rem 1.5rem;
+    box-shadow: 0 4px 15px rgba(30, 64, 175, 0.3);
+    border-bottom: 3px solid var(--accent-orange);
+}
+
+.navbar-brand {
+    color: var(--white) !important;
+    font-weight: 700;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.navbar-brand::before {
+    content: "🎓";
+    font-size: 1.8rem;
+}
+
+.navbar-toggler {
+    border: 2px solid var(--white);
+    padding: 0.5rem;
+}
+
+.navbar-toggler:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: scale(1.05);
+}
+
+.navbar-nav {
+    margin-left: auto;
+    gap: 1rem;
+}
+
+.nav-link {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    padding: 0.5rem 1rem !important;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+}
+
+.nav-link.active,
+.nav-link:hover {
+    color: var(--white) !important;
+    background-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.btn-light {
+    background: var(--white);
+    color: var(--primary-blue);
+    border: 2px solid var(--white);
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+    background: transparent;
+    color: var(--white);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.3);
+}
+
+/* ===== TESTIMONIALS SECTION ===== */
+.alumni-testimonials {
+    padding: 80px 0 60px;
+    background: var(--gradient-primary);
+    min-height: calc(100vh - 76px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.alumni-testimonials::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="rgba(255,255,255,0.05)" points="0,1000 1000,0 1000,1000"/></svg>');
+}
+
+.alumni-testimonials h2 {
+    font-size: 2.8rem;
+    color: var(--white);
+    margin-bottom: 1rem;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    position: relative;
+}
+
+.alumni-testimonials hr {
+    width: 100px;
+    height: 4px;
+    background: var(--accent-orange);
+    border: none;
+    margin: 0 auto 3rem;
+    border-radius: 2px;
+}
+
+.carousel-inner {
+    margin-top: 2rem;
+}
+
+.testimonial-slide {
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 20px;
+    padding: 2.5rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    transition: all 0.4s ease;
+    margin: 0 15px;
+    border-left: 5px solid var(--accent-orange);
+    backdrop-filter: blur(10px);
+}
+
+.testimonial-slide:hover {
+    transform: translateY(-10px) scale(1.02);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-slide p {
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.testimonial-slide footer {
+    color: var(--primary-blue);
+    font-weight: 600;
+    font-size: 1rem;
+    margin-top: 1rem;
+}
+
+/* Carousel Controls */
+.carousel-control-prev,
+.carousel-control-next {
+    width: 60px;
+    height: 60px;
+    background: var(--gradient-orange);
+    border-radius: 50%;
+    border: none;
+    margin-top: -30px;
+    transition: all 0.3s ease;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+    transform: scale(1.1);
+    box-shadow: 0 5px 15px rgba(245, 158, 11, 0.4);
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-size: 1.5rem 1.5rem;
+}
+
+/* ===== ALUMNI DIRECTORY SECTION ===== */
+.section2container {
+    text-align: center;
+    padding: 80px 0;
+    background: var(--background-light);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+}
+
+.section2container h1 {
+    color: var(--primary-blue);
+    margin-bottom: 3rem;
+    font-weight: 700;
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+}
+
+.section2container h1::before {
+    content: "🤝";
+    font-size: 2rem;
+}
+
+.card {
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    background: var(--white);
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.card-body {
+    padding: 2rem;
+}
+
+/* Excel Table Styles */
+#excel-table {
+    max-height: 500px;
+    overflow-y: auto;
+    border-radius: 10px;
+    border: 2px solid #e5e7eb;
+}
+
+#excel-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+}
+
+#excel-table th {
+    background: var(--gradient-blue);
+    color: var(--white);
+    padding: 1rem;
+    font-weight: 600;
+    text-align: left;
+    position: sticky;
+    top: 0;
+    border: none;
+}
+
+#excel-table td {
+    padding: 1rem;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+}
+
+#excel-table tbody tr {
+    transition: all 0.3s ease;
+}
+
+#excel-table tbody tr:hover {
+    background-color: #f8fafc;
+    transform: translateX(5px);
+}
+
+/* Checkbox Styles */
+#excel-table input[type="checkbox"] {
+    transform: scale(1.3);
+    margin: 0 10px;
+    accent-color: var(--primary-blue);
+    cursor: pointer;
+}
+
+/* Connect Button */
+.connectbtn {
+    background: var(--gradient-orange);
+    color: var(--white);
+    border: none;
+    border-radius: 25px;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(245, 158, 11, 0.3);
+}
+
+.connectbtn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(245, 158, 11, 0.4);
+}
+
+/* ===== MODAL STYLES ===== */
+.modal-dialog {
+    max-width: 500px;
+    margin: 1.75rem auto;
+}
+
+.modal-content {
+    background: var(--white);
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.modal-header {
+    background: var(--gradient-blue);
+    color: var(--white);
+    border-bottom: none;
+    padding: 1.5rem 2rem;
+}
+
+.modal-title {
+    font-weight: 700;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.form-label {
+    color: var(--text-dark);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    border: 2px solid #e5e7eb;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-control:focus {
+    border-color: var(--primary-blue);
+    box-shadow: 0 0 0 3px rgba(30, 64, 175, 0.1);
+}
+
+.btn-primary {
+    background: var(--gradient-blue);
+    border: none;
+    border-radius: 10px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(30, 64, 175, 0.3);
+}
+
+/* ===== ALERT STYLES ===== */
+.alert {
+    position: fixed;
+    top: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    width: 400px;
+    border-radius: 15px;
+    border: none;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    padding: 1rem 1.5rem;
+    font-weight: 500;
+}
+
+.alert-success {
+    background: var(--success-green);
+    color: var(--white);
+}
+
+.alert-danger {
+    background: var(--danger-red);
+    color: var(--white);
+}
+
+.alert button.close {
+    color: var(--white);
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.alert button.close:hover {
+    opacity: 1;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .navbar-brand {
+        font-size: 1.3rem;
+    }
+    
+    .navbar-nav {
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1rem;
+        gap: 0.5rem;
+    }
+    
+    .alumni-testimonials h2 {
+        font-size: 2.2rem;
+    }
+    
+    .testimonial-slide {
+        padding: 2rem;
+        margin: 0 10px;
+    }
+    
+    .section2container h1 {
+        font-size: 2rem;
+    }
+    
+    .modal-dialog {
+        max-width: 95%;
+        margin: 1rem auto;
+    }
+    
+    .alert {
+        width: 90%;
+        top: 80px;
+    }
+}
+
+@media (max-width: 576px) {
+    .navbar {
+        padding: 0.8rem 1rem;
+    }
+    
+    .alumni-testimonials {
+        padding: 60px 0 40px;
+    }
+    
+    .alumni-testimonials h2 {
+        font-size: 1.8rem;
+    }
+    
+    .section2container h1 {
+        font-size: 1.6rem;
+    }
+    
+    .card {
+        width: 95% !important;
+    }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.testimonial-slide,
+.card,
+.modal-content {
+    animation: fadeInUp 0.6s ease-out;
+}
+
+/* ===== SCROLLBAR STYLING ===== */
+#excel-table::-webkit-scrollbar {
+    width: 8px;
+}
+
+#excel-table::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+}
+
+#excel-table::-webkit-scrollbar-thumb {
+    background: var(--primary-blue);
+    border-radius: 4px;
+}
+
+#excel-table::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-blue);
+}

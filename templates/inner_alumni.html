@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nithin College - Alumni Portal</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/d8acde37bb.js" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: rgba(44, 62, 80, 0.95) !important;
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+        }
+
+        .section1 {
+            padding: 100px 20px 50px 20px;
+            text-align: center;
+        }
+
+        .section1 h1 {
+            color: white;
+            font-size: 2.5rem;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .alumni-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 0 auto;
+            max-width: 1000px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alumni-image {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .alumni-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+        }
+
+        .modal-header {
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .form-check-input:checked {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .alumni-features {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 40px auto;
+            max-width: 1000px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .feature-card {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            background: #f8f9fa;
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">
+                <i class="fas fa-graduation-cap me-2"></i>Nithin College Alumni Portal
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link active" href="#" onclick="showHome()">
+                    <i class="fas fa-home me-1"></i>Home
+                </a>
+                <button type="button" class="btn btn-light ms-3" onclick="logout()">
+                    <i class="fas fa-sign-out-alt me-1"></i>Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <section class="section1">
+        <h1>Welcome to Nithin College Alumni Network</h1>
+        
+        <div class="alumni-card">
+            <div class="alumni-content">
+                <h2 class="mb-4 text-dark">Connect, Mentor, and Grow Together</h2>
+                <p class="lead text-muted mb-4">
+                    Join our vibrant alumni community and make a difference in the lives of current students. 
+                    Share your experience, provide guidance, and help shape the future of Nithin College.
+                </p>
+                
+                <div class="row mb-5">
+                    <div class="col-md-8 mx-auto">
+                        <img src="/static/images/alumni_card.jpg" alt="Alumni Network" class="alumni-image" 
+                             onerror="this.src='https://images.unsplash.com/photo-1523580494863-6f3031224c94?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80'">
+                    </div>
+                </div>
+
+                <div class="text-center">
+                    <h4 class="text-dark mb-4">Ready to Make an Impact?</h4>
+                    <button type="button" class="btn btn-primary btn-lg" data-bs-toggle="modal" data-bs-target="#alumniModal">
+                        <i class="fas fa-user-plus me-2"></i>Join Alumni Network
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Alumni Features Section -->
+        <div class="alumni-features">
+            <h2 class="text-center mb-5">How You Can Contribute</h2>
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h5>Mentorship</h5>
+                        <p>Guide current students with your industry experience and career insights</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <h5>Placement Support</h5>
+                        <p>Help students with internship opportunities and job referrals</p>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chalkboard-teacher"></i>
+                        </div>
+                        <h5>Guest Lectures</h5>
+                        <p>Share your expertise through workshops and technical sessions</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Alumni Registration Modal -->
+    <div class="modal fade" id="alumniModal" tabindex="-1" aria-labelledby="alumniModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="alumniModalLabel">
+                        <i class="fas fa-user-graduate me-2"></i>Alumni Registration Form
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/alumnu_form" method="post">
+                        <div class="mb-3">
+                            <label for="alumniName" class="form-label">
+                                <i class="fas fa-user me-1"></i>Full Name
+                            </label>
+                            <input type="text" class="form-control" id="alumniName" name="al_name" 
+                                   placeholder="Enter your full name" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="companyName" class="form-label">
+                                <i class="fas fa-building me-1"></i>Current Company
+                            </label>
+                            <input type="text" class="form-control" id="companyName" name="al_c_name" 
+                                   placeholder="Where do you currently work?" required>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="position" class="form-label">
+                                <i class="fas fa-briefcase me-1"></i>Position/Role
+                            </label>
+                            <input type="text" class="form-control" id="position" name="al_position" 
+                                   placeholder="Your current job role (Optional)">
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="alumniEmail" class="form-label">
+                                <i class="fas fa-envelope me-1"></i>Email Address
+                            </label>
+                            <input type="email" class="form-control" id="alumniEmail" name="al_email" 
+                                   placeholder="your.email@example.com" required>
+                        </div>
+                        
+                        <div class="mb-4">
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" id="availabilitySwitch" name="al_avail" value="on">
+                                <label class="form-check-label fw-bold" for="availabilitySwitch">
+                                    <i class="fas fa-toggle-on me-1"></i>Available for Student Connections
+                                </label>
+                            </div>
+                            <small class="form-text text-muted">
+                                When enabled, students can contact you for guidance and mentorship
+                            </small>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <i class="fas fa-paper-plane me-2"></i>Submit Registration
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <div class="container">
+            <small>&copy; 2024 Nithin College Alumni Association. All rights reserved.</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Navigation Functions
+        function showHome() {
+            window.location.href = "/";
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = "/alumni.html";
+            }
+        }
+
+        // Form Submission Feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            const alumniForm = document.querySelector('form[action="/alumnu_form"]');
+            if (alumniForm) {
+                alumniForm.addEventListener('submit', function(e) {
+                    // Optional: Add form validation or confirmation here
+                    console.log('Alumni form submitted');
+                });
+            }
+
+            // Add some interactive features
+            const availabilitySwitch = document.getElementById('availabilitySwitch');
+            if (availabilitySwitch) {
+                availabilitySwitch.addEventListener('change', function() {
+                    if (this.checked) {
+                        console.log('Alumni marked as available for connections');
+                    } else {
+                        console.log('Alumni marked as not available for connections');
+                    }
+                });
+            }
+        });
+
+        // Success message for form submission (you can trigger this from backend)
+        function showSuccessMessage() {
+            alert('Thank you for registering! Your information has been submitted successfully.');
+        }
+    </script>
+</body>
+</html>

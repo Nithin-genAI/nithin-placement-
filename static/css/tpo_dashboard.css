@@ -1,0 +1,67 @@
+/* static/css/tpo_dashboard.css */
+.tpo-navbar {
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+}
+
+.stat-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+}
+
+.stat-card.total-students {
+    border-left: 4px solid #3498db;
+}
+
+.stat-card.total-drives {
+    border-left: 4px solid #e74c3c;
+}
+
+.stat-card.pending-approvals {
+    border-left: 4px solid #f39c12;
+}
+
+.stat-card.total-faculty {
+    border-left: 4px solid #27ae60;
+}
+
+.stat-icon {
+    font-size: 2.5rem;
+    margin-right: 15px;
+    opacity: 0.8;
+}
+
+.stat-card.total-students .stat-icon { color: #3498db; }
+.stat-card.total-drives .stat-icon { color: #e74c3c; }
+.stat-card.pending-approvals .stat-icon { color: #f39c12; }
+.stat-card.total-faculty .stat-icon { color: #27ae60; }
+
+.quick-actions-card {
+    background: white;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.action-buttons .btn {
+    margin: 5px;
+}
+
+.dept-stats .dept-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.dept-stats .dept-item:last-child {
+    border-bottom: none;
+}

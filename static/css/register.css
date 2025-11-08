@@ -1,0 +1,733 @@
+/* static/css/register.css */
+:root {
+    --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    --secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    --success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    --dark-gradient: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
+    --glass-bg: rgba(255, 255, 255, 0.1);
+    --glass-border: rgba(255, 255, 255, 0.2);
+    --shadow-soft: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    --shadow-medium: 0 15px 35px rgba(0, 0, 0, 0.1);
+    --shadow-large: 0 25px 50px rgba(0, 0, 0, 0.15);
+    --blur-effect: blur(20px);
+    --border-radius: 20px;
+    --transition-slow: all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    --transition-fast: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: gradientShift 15s ease infinite;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Floating Background Elements */
+.floating-elements {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.floating-element {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    animation: float 6s ease-in-out infinite;
+}
+
+.floating-element:nth-child(1) {
+    width: 80px;
+    height: 80px;
+    top: 20%;
+    left: 10%;
+    animation-delay: 0s;
+}
+
+.floating-element:nth-child(2) {
+    width: 120px;
+    height: 120px;
+    top: 60%;
+    left: 80%;
+    animation-delay: -2s;
+}
+
+.floating-element:nth-child(3) {
+    width: 60px;
+    height: 60px;
+    top: 80%;
+    left: 20%;
+    animation-delay: -4s;
+}
+
+.floating-element:nth-child(4) {
+    width: 100px;
+    height: 100px;
+    top: 30%;
+    left: 70%;
+    animation-delay: -1s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(180deg); }
+}
+
+.container-fluid {
+    backdrop-filter: blur(10px);
+}
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+/* Brand Section - Glass Morphism */
+.brand-section {
+    background: var(--glass-bg);
+    backdrop-filter: var(--blur-effect);
+    border-right: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-soft);
+    position: relative;
+    overflow: hidden;
+}
+
+.brand-section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: var(--primary-gradient);
+    opacity: 0.1;
+    animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+.brand-content {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px;
+}
+
+.logo-container {
+    text-align: center;
+    margin-bottom: 50px;
+    position: relative;
+}
+
+.logo-icon {
+    font-size: 5rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 25px;
+    display: inline-block;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.2));
+    animation: bounce 3s ease-in-out infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-10px); }
+}
+
+.brand-title {
+    font-size: 3rem;
+    font-weight: 800;
+    background: linear-gradient(135deg, #fff 0%, #a8edea 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 15px;
+    text-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.brand-subtitle {
+    font-size: 1.8rem;
+    font-weight: 300;
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.brand-text {
+    font-size: 1.2rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.8;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.benefits {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.benefit-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 25px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--blur-effect);
+    border: 1px solid var(--glass-border);
+    border-radius: 15px;
+    transition: var(--transition-fast);
+    position: relative;
+    overflow: hidden;
+}
+
+.benefit-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: var(--transition-slow);
+}
+
+.benefit-item:hover::before {
+    left: 100%;
+}
+
+.benefit-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+}
+
+.benefit-item i {
+    font-size: 2.2rem;
+    background: var(--success-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-width: 50px;
+}
+
+.benefit-item h6 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: white;
+    margin-bottom: 5px;
+}
+
+.benefit-item small {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* Form Section */
+.form-section {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: var(--blur-effect);
+    position: relative;
+    overflow-y: auto;
+}
+
+.registration-form-container {
+    max-width: 650px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+/* Back Link */
+.back-link {
+    margin-bottom: 30px;
+}
+
+.back-btn {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    padding: 12px 20px;
+    background: rgba(102, 126, 234, 0.1);
+    border-radius: 50px;
+    transition: var(--transition-fast);
+    border: 2px solid transparent;
+}
+
+.back-btn:hover {
+    color: #5a6fd8;
+    transform: translateX(-10px);
+    background: rgba(102, 126, 234, 0.2);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+/* Role Selection */
+.role-selection {
+    margin-bottom: 40px;
+}
+
+.form-title {
+    font-size: 2.5rem;
+    font-weight: 800;
+    background: var(--dark-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.form-subtitle {
+    font-size: 1.1rem;
+    color: #6b7280;
+    text-align: center;
+    margin-bottom: 40px;
+    font-weight: 500;
+}
+
+.role-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 25px;
+}
+
+.role-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: var(--border-radius);
+    padding: 30px;
+    cursor: pointer;
+    transition: var(--transition-slow);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+}
+
+.role-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--primary-gradient);
+    opacity: 0;
+    transition: var(--transition-slow);
+    z-index: 1;
+}
+
+.role-card.active::before {
+    opacity: 0.05;
+}
+
+.role-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-large);
+    border-color: #667eea;
+}
+
+.role-card.active {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #ffffff 0%, #f8faff 100%);
+    transform: translateY(-5px);
+}
+
+.role-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: flex-start;
+    gap: 25px;
+}
+
+.role-icon {
+    font-size: 3rem;
+    background: var(--primary-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    min-width: 80px;
+    text-align: center;
+    transition: var(--transition-fast);
+}
+
+.role-card.active .role-icon {
+    transform: scale(1.1);
+}
+
+.role-card h5 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 10px;
+    transition: var(--transition-fast);
+}
+
+.role-card.active h5 {
+    color: #667eea;
+}
+
+.role-card p {
+    color: #6b7280;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.role-features {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.role-features span {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.role-features i {
+    color: #10b981;
+    font-size: 0.8rem;
+}
+
+/* Faculty Type Selection */
+.faculty-type-selection {
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 15px;
+    padding: 20px;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.form-check {
+    margin-bottom: 12px;
+    padding-left: 35px;
+}
+
+.form-check-input {
+    width: 20px;
+    height: 20px;
+    margin-left: -35px;
+    margin-top: 0.2em;
+    border: 2px solid #d1d5db;
+    transition: var(--transition-fast);
+}
+
+.form-check-input:checked {
+    background-color: #667eea;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.2);
+}
+
+.form-check-label {
+    color: #374151;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition-fast);
+}
+
+.form-check-input:checked ~ .form-check-label {
+    color: #667eea;
+}
+
+/* Form Fields */
+#registrationForm {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 40px;
+    box-shadow: var(--shadow-large);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.form-fields {
+    display: none;
+    animation: slideUp 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.form-fields.active {
+    display: block;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.form-group {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.form-label {
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+    display: block;
+    font-size: 0.95rem;
+}
+
+.form-control, .form-select {
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 15px 20px;
+    font-size: 1rem;
+    transition: var(--transition-fast);
+    background: #f8fafc;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.form-control:focus, .form-select:focus {
+    border-color: #667eea;
+    background: white;
+    box-shadow: 0 0 0 4px rgba(102, 126, 234, 0.1), inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    transform: translateY(-2px);
+}
+
+/* Password Strength */
+.password-strength {
+    height: 4px;
+    background: #e5e7eb;
+    border-radius: 2px;
+    margin-top: 8px;
+    overflow: hidden;
+    position: relative;
+}
+
+.password-strength::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%;
+    background: var(--success-gradient);
+    transition: var(--transition-fast);
+}
+
+.form-control:focus ~ .password-strength::before {
+    width: 100%;
+}
+
+/* Terms and Conditions */
+.terms-group {
+    background: rgba(102, 126, 234, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 30px 0;
+    border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+.terms-link {
+    color: #667eea;
+    text-decoration: none;
+    font-weight: 600;
+    transition: var(--transition-fast);
+}
+
+.terms-link:hover {
+    color: #5a6fd8;
+    text-decoration: underline;
+}
+
+/* Submit Button */
+.btn-register {
+    background: var(--primary-gradient);
+    border: none;
+    border-radius: 15px;
+    padding: 18px 30px;
+    font-weight: 700;
+    font-size: 1.1rem;
+    transition: var(--transition-slow);
+    position: relative;
+    overflow: hidden;
+    box-shadow: var(--shadow-medium);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-register::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: var(--transition-slow);
+}
+
+.btn-register:hover::before {
+    left: 100%;
+}
+
+.btn-register:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-large);
+}
+
+.btn-register:active {
+    transform: translateY(-1px);
+}
+
+/* Flash Messages */
+.flash-messages {
+    position: fixed;
+    top: 30px;
+    right: 30px;
+    z-index: 9999;
+    min-width: 350px;
+}
+
+.alert {
+    border-radius: 15px;
+    border: none;
+    box-shadow: var(--shadow-large);
+    backdrop-filter: var(--blur-effect);
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 20px;
+    margin-bottom: 15px;
+    animation: slideInRight 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Design */
+@media (max-width: 1199.98px) {
+    .brand-content {
+        padding: 40px;
+    }
+    
+    .brand-title {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 991.98px) {
+    .brand-section {
+        display: none !important;
+    }
+    
+    .form-section {
+        padding: 20px;
+    }
+    
+    .registration-form-container {
+        padding: 20px 0;
+    }
+    
+    #registrationForm {
+        padding: 30px;
+    }
+}
+
+@media (max-width: 767.98px) {
+    .role-content {
+        flex-direction: column;
+        text-align: center;
+        gap: 15px;
+    }
+    
+    .role-icon {
+        min-width: auto;
+    }
+    
+    .form-title {
+        font-size: 2rem;
+    }
+    
+    #registrationForm {
+        padding: 25px;
+    }
+    
+    .flash-messages {
+        min-width: 300px;
+        right: 15px;
+        top: 15px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .form-section {
+        padding: 15px;
+    }
+    
+    #registrationForm {
+        padding: 20px;
+    }
+    
+    .role-card {
+        padding: 20px;
+    }
+    
+    .benefit-item {
+        padding: 20px;
+    }
+    
+    .flash-messages {
+        min-width: calc(100vw - 30px);
+        right: 15px;
+        left: 15px;
+    }
+}
+
+/* Custom Scrollbar */
+.form-section::-webkit-scrollbar {
+    width: 8px;
+}
+
+.form-section::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.form-section::-webkit-scrollbar-thumb {
+    background: var(--primary-gradient);
+    border-radius: 10px;
+}
+
+.form-section::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-gradient);
+}

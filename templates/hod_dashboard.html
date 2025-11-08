@@ -1,0 +1,200 @@
+<!-- templates/hod_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOD Dashboard - Placement Cell</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/hod_dashboard.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark hod-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-user-tie me-2"></i>
+                HOD Dashboard - {{ session.department }}
+            </a>
+            <div class="navbar-nav ms-auto">
+                <span class="navbar-text text-light me-3">
+                    <i class="fas fa-user me-1"></i> {{ session.name }}
+                </span>
+                <a href="/logout" class="btn btn-outline-light">
+                    <i class="fas fa-sign-out-alt me-1"></i> Logout
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Department Stats -->
+    <div class="container mt-4">
+        <div class="row">
+            <div class="col-md-3">
+                <div class="stat-card dept-students">
+                    <i class="fas fa-user-graduate stat-icon"></i>
+                    <div class="stat-content">
+                        <h3>{{ dept_stats.dept_students }}</h3>
+                        <p>Department Students</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card dept-applications">
+                    <i class="fas fa-file-alt stat-icon"></i>
+                    <div class="stat-content">
+                        <h3>{{ dept_stats.dept_applications }}</h3>
+                        <p>Total Applications</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card approval-rate">
+                    <i class="fas fa-chart-line stat-icon"></i>
+                    <div class="stat-content">
+                        <h3>{{ dept_stats.approval_rate }}%</h3>
+                        <p>Approval Rate</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card pending-students">
+                    <i class="fas fa-clock stat-icon"></i>
+                    <div class="stat-content">
+                        <h3>{{ pending_students }}</h3>
+                        <p>Pending Approvals</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- HOD Quick Actions -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="quick-actions-card">
+                    <h5><i class="fas fa-bolt me-2"></i>Department Actions</h5>
+                    <div class="action-buttons">
+                        <a href="/hod/approve_students" class="btn btn-primary">
+                            <i class="fas fa-user-check me-2"></i>Approve Students
+                        </a>
+                        <a href="/hod/department_reports" class="btn btn-success">
+                            <i class="fas fa-chart-pie me-2"></i>Department Reports
+                        </a>
+                        <a href="/hod/student_performance" class="btn btn-info">
+                            <i class="fas fa-chart-bar me-2"></i>Student Performance
+                        </a>
+                        <a href="/export_department_data" class="btn btn-warning">
+                            <i class="fas fa-download me-2"></i>Export Data
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Department Students & Recent Activity -->
+        <div class="row mt-4">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5><i class="fas fa-users me-2"></i>Department Students</h5>
+                        <input type="text" class="form-control form-control-sm w-auto" placeholder="Search students..." id="studentSearch">
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover" id="studentsTable">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Year</th>
+                                        <th>CGPA</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for student in department_students %}
+                                    <tr>
+                                        <td>{{ student.name }}</td>
+                                        <td>{{ student.email }}</td>
+                                        <td>{{ student.year }}</td>
+                                        <td>{{ student.cgpa }}</td>
+                                        <td>
+                                            {% if student.is_approved %}
+                                            <span class="badge bg-success">Approved</span>
+                                            {% else %}
+                                            <span class="badge bg-warning">Pending</span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if not student.is_approved %}
+                                            <button class="btn btn-sm btn-success approve-btn" data-student-id="{{ student.id }}">
+                                                <i class="fas fa-check"></i>
+                                            </button>
+                                            {% endif %}
+                                            <button class="btn btn-sm btn-info view-btn" data-student-id="{{ student.id }}">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Department Placement Stats -->
+            <div class="col-md-4">
+                <div class="card">
+                    <div class="card-header">
+                        <h5><i class="fas fa-briefcase me-2"></i>Placement Stats</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="placement-stats">
+                            <div class="stat-item">
+                                <span class="stat-label">Applied This Month</span>
+                                <span class="stat-value">{{ monthly_applications }}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Shortlisted</span>
+                                <span class="stat-value">{{ shortlisted_count }}</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-label">Selected</span>
+                                <span class="stat-value">{{ selected_count }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Notifications -->
+                <div class="card mt-3">
+                    <div class="card-header">
+                        <h5><i class="fas fa-bell me-2"></i>Recent Notifications</h5>
+                    </div>
+                    <div class="card-body">
+                        {% if notifications %}
+                        <div class="notification-list">
+                            {% for notification in notifications %}
+                            <div class="notification-item">
+                                <div class="notification-text">{{ notification.message }}</div>
+                                <small class="text-muted">{{ notification.time }}</small>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        {% else %}
+                        <p class="text-muted">No new notifications</p>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ url_for('static', filename='js/hod_dashboard.js') }}"></script>
+</body>
+</html>

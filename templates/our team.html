@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team - Nithin College Placement Cell</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/d8acde37bb.js" crossorigin="anonymous"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 15px 0;
+        }
+
+        .team-section {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 50px;
+            margin: 80px auto 40px;
+            max-width: 1200px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+        }
+
+        .team-card {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            text-align: center;
+            border-top: 5px solid #3498db;
+        }
+
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+
+        .team-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #3498db;
+            margin: 0 auto 20px;
+        }
+
+        .team-icon {
+            font-size: 4rem;
+            color: #3498db;
+            margin-bottom: 20px;
+        }
+
+        .team-name {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .team-role {
+            color: #3498db;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .team-contact {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+
+        .department-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin: 30px 0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .social-links a {
+            color: #3498db;
+            font-size: 1.2rem;
+            margin: 0 8px;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #2980b9;
+            transform: translateY(-3px);
+        }
+
+        footer {
+            background: rgba(44, 62, 80, 0.95);
+            margin-top: 50px;
+        }
+
+        .achievement-badge {
+            background: linear-gradient(45deg, #e74c3c, #c0392b);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin: 5px;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark fixed-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="/">
+                <i class="fas fa-graduation-cap me-2"></i>Nithin College
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="/">Home</a>
+                <a class="nav-link" href="/about">About</a>
+                <a class="nav-link" href="/contact">Contact</a>
+                <a class="nav-link active" href="/our team">Our Team</a>
+                <a class="nav-link" href="/register">Register</a>
+                <a class="nav-link" href="/login">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Team Section -->
+    <div class="container">
+        <div class="team-section">
+            <!-- Header -->
+            <div class="text-center mb-5">
+                <h1 class="display-4 fw-bold text-dark mb-3">Meet Our Team</h1>
+                <p class="lead text-muted">The dedicated professionals behind Nithin College Placement Cell</p>
+            </div>
+
+            <!-- Leadership Team -->
+            <div class="mb-5">
+                <h2 class="text-center text-primary mb-4">Leadership Team</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="team-card">
+                            <div class="team-icon">
+                                <i class="fas fa-user-tie"></i>
+                            </div>
+                            <h3 class="team-name">Dr. Ramesh Kumar</h3>
+                            <p class="team-role">Head of Placement Cell</p>
+                            <p class="text-muted">
+                                With over 15 years of experience in corporate relations and student development. 
+                                Former HR manager at leading IT companies.
+                            </p>
+                            <div class="team-contact">
+                                <p class="mb-1"><i class="fas fa-envelope me-2"></i>hod.placement@nithincollege.edu</p>
+                                <p class="mb-0"><i class="fas fa-phone me-2"></i>+91 98765 43210</p>
+                            </div>
+                            <div class="social-links mt-3">
+                                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="team-card">
+                            <div class="team-icon">
+                                <i class="fas fa-chalkboard-teacher"></i>
+                            </div>
+                            <h3 class="team-name">Prof. Sunita Sharma</h3>
+                            <p class="team-role">Training & Development Head</p>
+                            <p class="text-muted">
+                                Specializes in soft skills training, aptitude development, and interview preparation. 
+                                Certified corporate trainer.
+                            </p>
+                            <div class="team-contact">
+                                <p class="mb-1"><i class="fas fa-envelope me-2"></i>training@nithincollege.edu</p>
+                                <p class="mb-0"><i class="fas fa-phone me-2"></i>+91 98765 43211</p>
+                            </div>
+                            <div class="social-links mt-3">
+                                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="team-card">
+                            <div class="team-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3 class="team-name">Mr. Amit Patel</h3>
+                            <p class="team-role">Industry Relations Manager</p>
+                            <p class="text-muted">
+                                Manages corporate partnerships and industry collaborations. 
+                                Extensive network with 200+ companies.
+                            </p>
+                            <div class="team-contact">
+                                <p class="mb-1"><i class="fas fa-envelope me-2"></i>industry@nithincollege.edu</p>
+                                <p class="mb-0"><i class="fas fa-phone me-2"></i>+91 98765 43212</p>
+                            </div>
+                            <div class="social-links mt-3">
+                                <a href="#" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" title="Email"><i class="fas fa-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Department Coordinators -->
+            <div class="department-section">
+                <h2 class="text-center text-primary mb-4">Department Placement Coordinators</h2>
+                <div class="row">
+                    <div class="col-md-3 mb-4">
+                        <div class="team-card">
+                            <h4 class="team-name">Dr. Priya Singh</h4>
+                            <p class="team-role">CSE Coordinator</p>
+                            <p class="text-muted small">
+                                Specializes in software development placements and technical training.
+                            </p>
+                            <span class="achievement-badge">100% Placement</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="team-card">
+                            <h4 class="team-name">Prof. Rajesh Kumar</h4>
+                            <p class="team-role">ECE Coordinator</p>
+                            <p class="text-muted small">
+                                Focus on electronics and communication industry placements.
+                            </p>
+                            <span class="achievement-badge">95% Placement</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="team-card">
+                            <h4 class="team-name">Dr. Anjali Mehta</h4>
+                            <p class="team-role">Mechanical Coordinator</p>
+                            <p class="text-muted small">
+                                Core engineering and manufacturing sector specialist.
+                            </p>
+                            <span class="achievement-badge">90% Placement</span>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="team-card">
+                            <h4 class="team-name">Prof. Sameer Joshi</h4>
+                            <p class="team-role">AI & Civil Coordinator</p>
+                            <p class="text-muted small">
+                                Emerging technologies and infrastructure sector expert.
+                            </p>
+                            <span class="achievement-badge">88% Placement</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Support Staff -->
+            <div class="mb-5">
+                <h2 class="text-center text-primary mb-4">Support Team</h2>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="team-card">
+                            <div class="team-icon">
+                                <i class="fas fa-desktop"></i>
+                            </div>
+                            <h4 class="team-name">Ms. Neha Gupta</h4>
+                            <p class="team-role">Technical Support</p>
+                            <p class="text-muted">
+                                Manages the placement portal and technical infrastructure. 
+                                Ensures smooth digital operations.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="team-card">
+                            <div class="team-icon">
+                                <i class="fas fa-calendar-alt"></i>
+                            </div>
+                            <h4 class="team-name">Mr. Vikram Singh</h4>
+                            <p class="team-role">Event Coordinator</p>
+                            <p class="text-muted">
+                                Organizes placement drives, workshops, and training sessions. 
+                                Logistics and coordination expert.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="team-card">
+                            <div class="team-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <h4 class="team-name">Ms. Pooja Reddy</h4>
+                            <p class="team-role">Student Support</p>
+                            <p class="text-muted">
+                                First point of contact for student queries. 
+                                Provides guidance and support throughout placement process.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Team Achievements -->
+            <div class="department-section">
+                <h2 class="text-center text-primary mb-4">Our Achievements</h2>
+                <div class="row text-center">
+                    <div class="col-md-3 mb-3">
+                        <div class="team-card">
+                            <h3 class="text-success">200+</h3>
+                            <p>Company Partners</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="team-card">
+                            <h3 class="text-success">5000+</h3>
+                            <p>Students Placed</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="team-card">
+                            <h3 class="text-success">85%</h3>
+                            <p>Placement Rate</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="team-card">
+                            <h3 class="text-success">15+</h3>
+                            <p>Years Excellence</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-5">
+                <h3 class="mb-3">Want to Join Our Team?</h3>
+                <p class="lead mb-4">We're always looking for passionate professionals to join our mission</p>
+                <a href="/contact" class="btn btn-primary btn-lg me-3">
+                    <i class="fas fa-envelope me-2"></i>Contact Us
+                </a>
+                <a href="/careers" class="btn btn-outline-primary btn-lg">
+                    <i class="fas fa-briefcase me-2"></i>View Openings
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>Nithin College</h5>
+                    <p>Building careers, shaping futures</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>Quick Links</h5>
+                    <a href="/" class="text-white me-3">Home</a>
+                    <a href="/about" class="text-white me-3">About</a>
+                    <a href="/our team" class="text-white">Our Team</a>
+                </div>
+                <div class="col-md-4">
+                    <h5>Contact Team</h5>
+                    <p>Email: placement@nithincollege.edu</p>
+                </div>
+            </div>
+            <hr class="my-4">
+            <small>&copy; 2024 Nithin College Placement Cell. All rights reserved.</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Team member interaction
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Nithin College Team Page loaded successfully');
+            
+            // Add click animation to team cards
+            const teamCards = document.querySelectorAll('.team-card');
+            teamCards.forEach(card => {
+                card.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = '';
+                    }, 150);
+                });
+            });
+
+            // Smooth scrolling for navigation
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+
+        // Simple animation for achievement numbers
+        function animateNumbers() {
+            const numbers = document.querySelectorAll('.team-card h3.text-success');
+            numbers.forEach(number => {
+                const target = parseInt(number.textContent);
+                let current = 0;
+                const increment = target / 50;
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        number.textContent = target + '+';
+                        clearInterval(timer);
+                    } else {
+                        number.textContent = Math.floor(current) + '+';
+                    }
+                }, 50);
+            });
+        }
+
+        // Trigger animation when page loads
+        window.addEventListener('load', animateNumbers);
+    </script>
+</body>
+</html>

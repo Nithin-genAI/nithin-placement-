@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications - Student Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/my_applications.css') }}">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark applications-navbar">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-file-alt me-2"></i>
+                My Applications
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a href="/inner_student.html" class="btn btn-outline-light me-2">
+                    <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+                </a>
+                <a href="/drives" class="btn btn-light">
+                    <i class="fas fa-briefcase me-1"></i> Browse Drives
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container mt-4">
+        <!-- Header Section -->
+        <div class="applications-header text-center mb-5">
+            <h1 class="display-5 fw-bold text-primary">
+                <i class="fas fa-rocket me-3"></i>
+                My Job Applications
+            </h1>
+            <p class="lead text-muted">Track your placement journey and application status</p>
+        </div>
+
+        <!-- Statistics Cards -->
+        <div class="row mb-4">
+            <div class="col-md-3">
+                <div class="stat-card total">
+                    <div class="stat-icon">
+                        <i class="fas fa-paper-plane"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="total-applications">{{ applications|length }}</h3>
+                        <p>Total Applications</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card pending">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="pending-count">0</h3>
+                        <p>Pending Review</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card selected">
+                    <div class="stat-icon">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="selected-count">0</h3>
+                        <p>Shortlisted</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="stat-card interview">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="interview-count">0</h3>
+                        <p>Interview Calls</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Application Progress -->
+        <div class="row mb-4">
+            <div class="col-12">
+                <div class="progress-section">
+                    <h5 class="mb-3">
+                        <i class="fas fa-chart-line me-2"></i>
+                        Application Progress
+                    </h5>
+                    <div class="progress-container">
+                        <div class="progress-bar-container">
+                            <div class="progress-bar" id="applicationProgress">
+                                <span class="progress-text">Application Journey</span>
+                            </div>
+                        </div>
+                        <div class="progress-steps">
+                            <div class="step applied active">
+                                <i class="fas fa-paper-plane"></i>
+                                <span>Applied</span>
+                            </div>
+                            <div class="step under-review">
+                                <i class="fas fa-search"></i>
+                                <span>Under Review</span>
+                            </div>
+                            <div class="step shortlisted">
+                                <i class="fas fa-star"></i>
+                                <span>Shortlisted</span>
+                            </div>
+                            <div class="step interview">
+                                <i class="fas fa-video"></i>
+                                <span>Interview</span>
+                            </div>
+                            <div class="step selected">
+                                <i class="fas fa-trophy"></i>
+                                <span>Selected</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters and Search -->
+        <div class="row mb-4">
+            <div class="col-md-6">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="applicationSearch" class="form-control search-input" 
+                           placeholder="Search companies or roles...">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <select id="statusFilter" class="form-select filter-select">
+                    <option value="">All Status</option>
+                    <option value="applied">Applied</option>
+                    <option value="under review">Under Review</option>
+                    <option value="shortlisted">Shortlisted</option>
+                    <option value="interview">Interview</option>
+                    <option value="selected">Selected</option>
+                    <option value="rejected">Rejected</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <select id="sortBy" class="form-select filter-select">
+                    <option value="newest">Newest First</option>
+                    <option value="oldest">Oldest First</option>
+                    <option value="company">Company A-Z</option>
+                    <option value="status">By Status</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Applications List -->
+        <div class="applications-container">
+            {% if applications %}
+            <div class="row" id="applicationsList">
+                {% for app in applications %}
+                <div class="col-lg-6 mb-4 application-item" 
+                     data-status="{{ app['status'].lower() }}"
+                     data-company="{{ app['company_name'].lower() }}"
+                     data-role="{{ app['role'].lower() }}"
+                     data-date="{{ app.get('applied_date', '') }}">
+                    <div class="application-card status-{{ app['status'].replace(' ', '-').lower() }}">
+                        <div class="application-header">
+                            <div class="company-info">
+                                <div class="company-logo">
+                                    {{ app['company_name'][0]|upper }}
+                                </div>
+                                <div class="company-details">
+                                    <h4 class="company-name">{{ app['company_name'] }}</h4>
+                                    <p class="role-name">{{ app['role'] }}</p>
+                                </div>
+                            </div>
+                            <div class="application-meta">
+                                <span class="application-date">
+                                    <i class="fas fa-calendar me-1"></i>
+                                    {{ app.get('applied_date', 'Recent') }}
+                                </span>
+                                <div class="application-actions">
+                                    <button class="btn btn-sm btn-outline-primary view-details-btn">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="application-body">
+                            <div class="status-section">
+                                <div class="status-badge status-{{ app['status'].replace(' ', '-').lower() }}">
+                                    <i class="status-icon {{ get_status_icon_class(app['status']) }}"></i>
+                                    <span class="status-text">{{ app['status']|title }}</span>
+                                </div>
+                                <div class="status-progress">
+                                    <div class="progress" style="height: 6px;">
+                                        <div class="progress-bar status-progress-bar" 
+                                             data-status="{{ app['status'].lower() }}">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="application-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-clock detail-icon"></i>
+                                    <span class="detail-label">Applied:</span>
+                                    <span class="detail-value">{{ app.get('applied_date', 'Not specified') }}</span>
+                                </div>
+                                {% if app.get('resume_path') %}
+                                <div class="detail-item">
+                                    <i class="fas fa-file-pdf detail-icon"></i>
+                                    <span class="detail-label">Resume:</span>
+                                    <span class="detail-value uploaded">Uploaded</span>
+                                </div>
+                                {% else %}
+                                <div class="detail-item">
+                                    <i class="fas fa-file-pdf detail-icon"></i>
+                                    <span class="detail-label">Resume:</span>
+                                    <span class="detail-value missing">Not Uploaded</span>
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="application-footer">
+                            <div class="action-buttons">
+                                {% if app.get('resume_path') %}
+                                <a href="{{ app['resume_path'] }}" class="btn btn-outline-primary btn-sm" target="_blank">
+                                    <i class="fas fa-download me-1"></i> View Resume
+                                </a>
+                                {% else %}
+                                <a href="/upload_resume" class="btn btn-outline-warning btn-sm">
+                                    <i class="fas fa-upload me-1"></i> Upload Resume
+                                </a>
+                                {% endif %}
+                                
+                                {% if app['status'].lower() in ['shortlisted', 'interview'] %}
+                                <button class="btn btn-success btn-sm prepare-btn">
+                                    <i class="fas fa-book me-1"></i> Prepare
+                                </button>
+                                {% endif %}
+                                
+                                <button class="btn btn-outline-danger btn-sm withdraw-btn" 
+                                        data-application-id="{{ app['id'] if app.get('id') else loop.index }}"
+                                        data-company="{{ app['company_name'] }}">
+                                    <i class="fas fa-times me-1"></i> Withdraw
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            {% else %}
+            <!-- Empty State -->
+            <div class="empty-state text-center py-5">
+                <i class="fas fa-file-alt fa-4x text-muted mb-3"></i>
+                <h3 class="text-muted">No Applications Yet</h3>
+                <p class="text-muted mb-4">Start your placement journey by applying to available drives.</p>
+                <div class="action-buttons">
+                    <a href="/drives" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-briefcase me-2"></i> Browse Drives
+                    </a>
+                    <a href="/upload_resume" class="btn btn-outline-primary btn-lg">
+                        <i class="fas fa-file-upload me-2"></i> Upload Resume
+                    </a>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+
+        <!-- Quick Tips -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="tips-section">
+                    <h5 class="mb-3">
+                        <i class="fas fa-lightbulb me-2"></i>
+                        Application Tips
+                    </h5>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="tip-card">
+                                <i class="fas fa-sync-alt tip-icon"></i>
+                                <h6>Follow Up</h6>
+                                <p class="text-muted">Check your application status regularly and follow up when needed.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tip-card">
+                                <i class="fas fa-file-pdf tip-icon"></i>
+                                <h6>Update Resume</h6>
+                                <p class="text-muted">Keep your resume updated with latest projects and achievements.</p>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="tip-card">
+                                <i class="fas fa-graduation-cap tip-icon"></i>
+                                <h6>Prepare Well</h6>
+                                <p class="text-muted">Practice aptitude tests and technical interviews regularly.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Application Details Modal -->
+    <div class="modal fade" id="applicationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title">
+                        <i class="fas fa-info-circle me-2"></i>
+                        Application Details
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="applicationDetails">
+                    <!-- Application details will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
+    <script src="{{ url_for('static', filename='js/my_applications.js') }}"></script>
+</body>
+</html>

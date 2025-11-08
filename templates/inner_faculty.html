@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Nithin College - Faculty Portal</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/d8acde37bb.js" crossorigin="anonymous"></script>
+
+    <!-- Excel library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.3/xlsx.full.min.js"></script>
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .navbar {
+            background: rgba(44, 62, 80, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 20px 0;
+            border-radius: 0 0 15px 15px;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .navhome, .navreg {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+            margin: 0 10px;
+            transition: all 0.3s;
+        }
+
+        .navhome:hover, .navreg:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .heading {
+            font-size: 2.5rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .bigcard {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin: 30px auto;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            max-width: 1200px;
+        }
+
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s;
+            height: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .card-body {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-title {
+            color: #2c3e50;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .card-text {
+            color: #7f8c8d;
+            margin-bottom: 20px;
+        }
+
+        .modal-content {
+            border-radius: 15px;
+            border: none;
+        }
+
+        .modal-header {
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            color: white;
+            border-radius: 15px 15px 0 0;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #3498db, #2980b9);
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+            transition: all 0.3s;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.4);
+        }
+
+        .btn-warning {
+            background: linear-gradient(45deg, #f39c12, #e67e22);
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
+            transition: all 0.3s;
+        }
+
+        .btn-warning:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(243, 156, 18, 0.4);
+        }
+
+        footer {
+            background: rgba(44, 62, 80, 0.95);
+            margin-top: 50px;
+        }
+
+        #excel-table {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        #excel-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        #excel-table th, #excel-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        #excel-table th {
+            background-color: #f8f9fa;
+            position: sticky;
+            top: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <h1 class="logo text-white">
+                <i class="fas fa-chalkboard-teacher me-2"></i>Nithin College Faculty Portal
+            </h1>
+            <div class="navbar-nav ms-auto">
+                <button type="button" class="btn btn-primary navhome" onclick="showHome()">
+                    <i class="fas fa-home me-2"></i>Home
+                </button>
+                <button type="button" class="btn btn-primary navreg" onclick="logout()">
+                    <i class="fas fa-sign-out-alt me-2"></i>Logout
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Header Section -->
+        <h1 class="heading text-white mt-5 mb-4 text-center">
+            <i class="fas fa-chalkboard-teacher me-3"></i>
+            Faculty and TPO Dashboard
+        </h1>
+
+        <!-- Dashboard Cards -->
+        <div class="bigcard">
+            <div class="container">
+                <div class="row g-4">
+                    <!-- Student Data Card -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class="fas fa-users fa-3x text-primary mb-3"></i>
+                                <h5 class="card-title">Student Data Management</h5>
+                                <p class="card-text">
+                                    Access and download comprehensive student information by department and year.
+                                </p>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#departmentModal">
+                                    <i class="fas fa-download me-2"></i>Get Student Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Resource Sharing Card -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class="fas fa-share-alt fa-3x text-success mb-3"></i>
+                                <h5 class="card-title">Resource Sharing</h5>
+                                <p class="card-text">
+                                    Share learning materials, announcements, and resources with students.
+                                </p>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#resourceSharingModal">
+                                    <i class="fas fa-share me-2"></i>Share Resources
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- View Students Card -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class="fas fa-database fa-3x text-warning mb-3"></i>
+                                <h5 class="card-title">View Student Database</h5>
+                                <p class="card-text">
+                                    Browse and analyze registered student information in real-time.
+                                </p>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#viewStudentDataModal" onclick="displayExcelContent()">
+                                    <i class="fas fa-eye me-2"></i>View Student Data
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Drive Information Card -->
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body">
+                                <i class="fas fa-bullhorn fa-3x text-danger mb-3"></i>
+                                <h5 class="card-title">Placement Drive Management</h5>
+                                <p class="card-text">
+                                    Announce placement drives and send notifications to eligible students.
+                                </p>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#driveInformationModal">
+                                    <i class="fas fa-plus me-2"></i>Add Drive Information
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUICK MVP FEATURES -->
+        <div class="bigcard mt-4">
+            <div class="container">
+                <h3 class="text-center mb-4">🚀 Quick Placement Management</h3>
+                <!-- Add this to the Quick Action Buttons row -->
+<div class="col-md-4">
+    <div class="card">
+        <div class="card-body text-center">
+            <i class="fas fa-file-excel fa-2x text-success mb-3"></i>
+            <h5>Export Reports</h5>
+            <p class="text-muted">Download applications data</p>
+            <a href="/export_applications" class="btn btn-success">
+                <i class="fas fa-download me-2"></i>Export Excel
+            </a>
+        </div>
+    </div>
+</div>
+                <!-- Quick Drive Creation Form -->
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title"><i class="fas fa-plus-circle me-2"></i>Create Placement Drive</h5>
+                        <form action="/create_drive" method="POST">
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <input type="text" name="company_name" class="form-control" placeholder="Company Name" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input type="text" name="role" class="form-control" placeholder="Job Role" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <input type="text" name="eligibility" class="form-control" placeholder="Eligibility" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-success w-100">
+                                <i class="fas fa-bullhorn me-2"></i>Create Drive
+                            </button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Quick Action Buttons -->
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <i class="fas fa-user-check fa-2x text-success mb-3"></i>
+                                <h5>Approve Students</h5>
+                                <p class="text-muted">Approve pending student registrations</p>
+                                <a href="/approve_students" class="btn btn-primary">
+                                    <i class="fas fa-check-circle me-2"></i>Manage Approvals
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <i class="fas fa-list-alt fa-2x text-info mb-3"></i>
+                                <h5>View All Drives</h5>
+                                <p class="text-muted">See all placement drives</p>
+                                <a href="/drives" class="btn btn-primary">
+                                    <i class="fas fa-eye me-2"></i>View Drives
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- END OF MVP FEATURES -->
+
+    </div>
+
+    <!-- Student Data Modal -->
+    <div class="modal fade" id="departmentModal" tabindex="-1" aria-labelledby="departmentModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="/download_stu_data" method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="departmentModalLabel">
+                            <i class="fas fa-download me-2"></i>Download Student Data
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="mb-3">
+                            <label for="department" class="form-label">Select Department</label>
+                            <select class="form-select department-dropdown" name="dept" required>
+                                <option value="">Choose Department</option>
+                                <option>COMPUTER SCIENCE ENGINEERING</option>
+                                <option>ELECTRONICS & TELECOMMUNICATION ENGINEERING</option>
+                                <option>MECHANICAL ENGINEERING</option>
+                                <option>ARTIFICIAL INTELLIGENCE</option>
+                                <option>CIVIL ENGINEERING</option>
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="year" class="form-label">Select Academic Year</label>
+                            <select class="form-select year-dropdown" name="year" required>
+                                <option value="">Choose Year</option>
+                                <option>First Year</option>
+                                <option>Second Year</option>
+                                <option>Third Year</option>
+                                <option>Fourth Year</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-download me-2"></i>Download Data
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resource Sharing Modal -->
+    <div class="modal fade" id="resourceSharingModal" tabindex="-1" aria-labelledby="resourceSharingModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="resourceSharingModalLabel">
+                        <i class="fas fa-share-alt me-2"></i>Share Resources
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="resourceForm">
+                        <div class="mb-3">
+                            <label for="resourceTitle" class="form-label">Resource Title</label>
+                            <input type="text" class="form-control" id="resourceTitle" placeholder="Enter resource title">
+                        </div>
+                        <div class="mb-3">
+                            <label for="resourceMessage" class="form-label">Description</label>
+                            <textarea class="form-control" id="resourceMessage" rows="3" placeholder="Enter resource description"></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="resourceFile" class="form-label">Upload File</label>
+                            <input class="form-control" type="file" id="resourceFile" />
+                        </div>
+                        <div class="mb-3">
+                            <label for="targetDepartment" class="form-label">Target Department</label>
+                            <select class="form-select" id="targetDepartment">
+                                <option value="all">All Departments</option>
+                                <option>COMPUTER SCIENCE ENGINEERING</option>
+                                <option>ELECTRONICS & TELECOMMUNICATION ENGINEERING</option>
+                                <option>MECHANICAL ENGINEERING</option>
+                                <option>ARTIFICIAL INTELLIGENCE</option>
+                                <option>CIVIL ENGINEERING</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="shareResources()">
+                        <i class="fas fa-paper-plane me-2"></i>Share Resources
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- View Student Data Modal -->
+    <div class="modal fade" id="viewStudentDataModal" tabindex="-1" aria-labelledby="viewStudentDataModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewStudentDataModalLabel">
+                        <i class="fas fa-database me-2"></i>Registered Students Database
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <div class="card-body">
+                            <div id="excel-table" class="table-responsive">
+                                <!-- Excel data will be displayed here -->
+                                <p class="text-center text-muted">Loading student data...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" onclick="refreshStudentData()">
+                        <i class="fas fa-sync-alt me-2"></i>Refresh Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Drive Information Modal -->
+    <div class="modal fade" id="driveInformationModal" tabindex="-1" aria-labelledby="driveInformationModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="driveInformationModalLabel">
+                        <i class="fas fa-bullhorn me-2"></i>Add Placement Drive Information
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/send_message" method="post" enctype="multipart/form-data">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="companyName" class="form-label">Company Name</label>
+                                <input type="text" class="form-control" id="companyName" name="c_name" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="jobRole" class="form-label">Job Role</label>
+                                <input type="text" class="form-control" id="jobRole" name="j_role" required />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="driveDate" class="form-label">Drive Date</label>
+                                <input type="date" class="form-control" id="driveDate" name="d_date" required />
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="driveTime" class="form-label">Drive Time</label>
+                                <input type="time" class="form-control" id="driveTime" name="d_time" required />
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="department" class="form-label">Target Department</label>
+                            <select class="form-select department-dropdown" name="dept" required>
+                                <option value="">Select Department</option>
+                                <option>All Departments</option>
+                                <option>COMPUTER SCIENCE ENGINEERING</option>
+                                <option>ELECTRONICS & TELECOMMUNICATION ENGINEERING</option>
+                                <option>MECHANICAL ENGINEERING</option>
+                                <option>ARTIFICIAL INTELLIGENCE</option>
+                                <option>CIVIL ENGINEERING</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Additional Information</label>
+                            <textarea class="form-control" id="message" rows="3" name="message" placeholder="Enter drive details, requirements, and instructions..."></textarea>
+                        </div>
+                        <div class="mb-3">
+                            <label for="campusFile" class="form-label">Attachment (Optional)</label>
+                            <input class="form-control" type="file" id="campusFile" name="campus_file" />
+                            <div class="form-text">Upload company brochure, JD, or any relevant document</div>
+                        </div>
+                        <button type="submit" class="btn btn-warning w-100">
+                            <i class="fas fa-paper-plane me-2"></i>Send Drive Notification
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-4">
+        <div class="container">
+            <small>&copy; 2024 Nithin College Placement Cell. All rights reserved.</small>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Navigation Functions
+        function showHome() {
+            window.location.href = "/";
+        }
+
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                window.location.href = "/sign_in.html";
+            }
+        }
+
+        // Resource Sharing Function
+        function shareResources() {
+            const title = document.getElementById('resourceTitle').value;
+            const message = document.getElementById('resourceMessage').value;
+            const department = document.getElementById('targetDepartment').value;
+            
+            if (!title || !message) {
+                alert('Please fill in all required fields.');
+                return;
+            }
+            
+            alert(`Resources shared successfully with ${department}!\n\nTitle: ${title}\nMessage: ${message}`);
+            $('#resourceSharingModal').modal('hide');
+            document.getElementById('resourceForm').reset();
+        }
+
+        // Student Data Display Function
+        async function displayExcelContent() {
+            try {
+                const response = await fetch("static/student_data_show.xlsx");
+                if (!response.ok) {
+                    throw new Error('Excel file not found');
+                }
+                const arrayBuffer = await response.arrayBuffer();
+                const workbook = XLSX.read(arrayBuffer, { type: 'array' });
+                const sheet = workbook.Sheets[workbook.SheetNames[0]];
+                const tableHTML = XLSX.utils.sheet_to_html(sheet);
+                document.getElementById('excel-table').innerHTML = tableHTML;
+                
+                // Add some basic styling to the table
+                const table = document.querySelector('#excel-table table');
+                if (table) {
+                    table.className = 'table table-striped table-bordered table-hover';
+                }
+            } catch (error) {
+                console.error('Error fetching and displaying Excel data:', error);
+                document.getElementById('excel-table').innerHTML = 
+                    '<div class="alert alert-warning text-center">Student data file not available yet. Students need to register first.</div>';
+            }
+        }
+
+        function refreshStudentData() {
+            document.getElementById('excel-table').innerHTML = '<p class="text-center text-muted">Refreshing data...</p>';
+            setTimeout(displayExcelContent, 1000);
+        }
+
+        // Drive Information Function
+        function sendDriveInformation() {
+            // This will be handled by the form submission to Flask
+            alert('Drive information submitted successfully! Notifications will be sent to students.');
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Nithin College Faculty Portal loaded successfully');
+        });
+    </script>
+</body>
+</html>
